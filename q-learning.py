@@ -41,8 +41,8 @@ if __name__ == "__main__":
         play_surface.blit(bg_image, (0, 0)) # Render the background image.
 
         # Render the robot over the image.
-        pygame.draw.rect(play_surface, BLACK_COLOR, Rect(robot.get_x() * 70 + 69, robot.get_y() * 70 + 69, 22, 22)) # A black outline.
-        pygame.draw.rect(play_surface, GREEN_COLOR, Rect(robot.get_x() * 70 + 70, robot.get_y() * 70 + 70, 20, 20)) # The robot is rendered in green, you may change this if you want.
+        pygame.draw.rect(play_surface, BLACK_COLOR, Rect(robot.x * 70 + 69, robot.y * 70 + 69, 22, 22)) # A black outline.
+        pygame.draw.rect(play_surface, GREEN_COLOR, Rect(robot.x * 70 + 70, robot.y * 70 + 70, 20, 20)) # The robot is rendered in green, you may change this if you want.
 
         # Calls related to Q-learning.
         if robot.has_reached_goal():
