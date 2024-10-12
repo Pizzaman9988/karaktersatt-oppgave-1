@@ -19,7 +19,7 @@ if __name__ == "__main__":
     print(f"Best Score: {robot.best_score}\nBest Path:" , end=" ")
     for state in robot.best_path:
         if state == (5, 0):
-            print(state, end="")
+            print(state)
         else:
             print(state, end=" -> ")
 
