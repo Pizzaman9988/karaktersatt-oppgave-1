@@ -24,3 +24,6 @@ Basert på disse opplysningene kan vi forenkle kartet til følgende figur.
 * Utvid roboten til å bruke Q-learning for å utforske kartet og lære seg den tryggeste stien fra A4 til F1. Husk Q-matrise og policy-funksjon.
 * Bruk pygame for å visualisere den tryggeste stien fra start til mål.
 * Eksperimenter med å kjøre Q-learning-programmet med ulike antall episoder (og evt. ulike varianter av policy), og vis hvor god rute roboten finner for hvert eksperiment. Klarer den å finne den optimale ruta? Det kan hende du må justere reward-matrisa for å få gode resultater.
+
+# Visualisering av beste rute
+![GIF](Q-learning.gifgif)

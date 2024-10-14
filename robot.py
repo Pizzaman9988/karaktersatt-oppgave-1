@@ -25,39 +25,35 @@ class Robot:
     -------
     set_next_state(action: int) -> int:
         Updates robot position based on action (up, down, right, left)
-        Checks if action is legal and returns new state index.
+        Checks if action is legal and returns the new states index.
     get_action_greedy(state: int) -> int:
-        Returns best action based on greedy policy, which is the action
-        with the highest Q-value for current state. If multiple of same
-        value selects one of them randomly.
+        Returns the action with the highest Q-value for current state.
+        If multiple actions have same value, selects one of them
+        randomly.
     get_action_mc() -> int:
         Randomly selects and returns an action (0-3), simulating Monte
         Carlo policy.
-    get_action_eg(state) -> int:
-        Returns get_action_mc() if random number < epsilon, else
-        returns get_action_greedy().
-    epsilon_update():
-        Decreases epsilon by factor decay_rate to a minimum value of
-        min_epsilon.
-    monte_carlo_exploration(epochs: int) ->:
-        Explores terrain with Monte Carlo policy, with equal chance of
-        choosing each action. Starts in (0, 3), resets in (5, 0).
-        Repeats for given number of epochs, then prints best score
-        achieved.
-    one_step_q_learning():
-        Executes one step of q-learning. Updates state and q-matrix.
-    q_learning(epochs: int):
-        Runs q_learning for given number of epochs. Starts each epoch
-        in random state, ends epoch when reaching (5, 0). Reduces
-        epsilon for each epoch.
-    has_reached_goal():
+    get_action_eg(state: int) -> int:
+        Returns Monte Carlo or greedy action based on epsilon value.
+    epsilon_update() -> None:
+        Decreases epsilon by decay_rate towards min_epsilon.
+    monte_carlo_exploration(epochs: int) -> None:
+        Explores terrain with Monte Carlo policy. Starts in (0, 3),
+        resets in (5, 0). Repeats for specified number of epochs, then
+        prints best score achieved.
+    one_step_q_learning() -> None:
+        Executes one step of q-learning and updates the q-matrix.
+    q_learning(epochs: int) -> None:
+        Runs q_learning for specified number of epochs. Starts epoch in
+        random state, ends epoch when reaching (5, 0). Reduces epsilon
+        for each epoch.
+    has_reached_goal() -> bool:
         Returns True if target state == (5, 0) is reached.
-    reset_random():
-        Sets x and y coordinates to random values in [0, 5].
-    get_best_path():
-        Finds best path by using a greedy policy to pick the most
-        rewarding path according to the q-matrix. Also records
-        highest score.
+    reset_random() -> None:
+        Resets robot position to random state.
+    get_best_path() -> None:
+        Finds best path and score using a greedy policy on the
+        q-matrix.
     """
 
     def __init__(
@@ -170,18 +166,18 @@ class Robot:
         return rnd.choice(best_actions)
     
     def get_action_mc(self) -> int:
-        """Return int representing action based on Monte Carlo policy"""
+        """Return int representing action based on Monte Carlo policy."""
 
         return rnd.randint(0, 3)
 
     def get_action_eg(self, state: int) -> int:
         """
-        Returns Monte Carlo or greedy action based on epsilon
+        Returns Monte Carlo or greedy action based on epsilon.
 
         Parameters
         ----------
         state: int
-            Row number in r/q-matrix
+            Row number in r/q-matrix.
 
         Returns
         -------
@@ -206,7 +202,7 @@ class Robot:
         Parameters
         ----------
         epochs: int
-            Number of simulation iterations to perform
+            Number of simulation iterations to perform.
 
         Returns
         -------
@@ -231,7 +227,7 @@ class Robot:
         """Execute one step of q-learning."""
 
         current_state = self.y * 6 + self.x
-        action = self.get_action_eg(current_state)
+        action = self.get_action_greedy(current_state)
         next_state = self.set_next_state(action)
         reward = self.r_matrix[current_state][action]
         self.q_matrix[current_state][action] = (
@@ -241,7 +237,7 @@ class Robot:
         return None
 
     def q_learning(self, epochs: int) -> None:
-        """Execute q-learning for given number of epochs"""
+        """Execute q-learning for given number of epochs."""
 
         for _ in range(epochs):
             self.reset_random()
@@ -250,16 +246,16 @@ class Robot:
             self.epsilon_update()
         return None
 
-    def has_reached_goal(self):
-        """Return True if Robot has reached target destination (5, 0)"""
+    def has_reached_goal(self) -> bool:
+        """Return True if Robot has reached target destination (5, 0)."""
 
         if self.y == 5 and self.x == 0:
             return True
         else:
             return False
         
-    def reset_random(self):
-        """Sets robot position to a random grid location"""
+    def reset_random(self) -> None:
+        """Resets robot position to random state."""
 
         self.y = rnd.randint(0, 5)
         self.x = rnd.randint(0, 5)
