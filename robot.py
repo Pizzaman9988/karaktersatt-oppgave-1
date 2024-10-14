@@ -227,7 +227,7 @@ class Robot:
         """Execute one step of q-learning."""
 
         current_state = self.y * 6 + self.x
-        action = self.get_action_greedy(current_state)
+        action = self.get_action_eg(current_state)
         next_state = self.set_next_state(action)
         reward = self.r_matrix[current_state][action]
         self.q_matrix[current_state][action] = (
